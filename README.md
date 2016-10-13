@@ -8,3 +8,5 @@ Todo:
 
 Making data available on github: 
 https://www.r-bloggers.com/data-on-github-the-easy-way-to-make-your-data-available/
+
+Structure for Python projects: 
