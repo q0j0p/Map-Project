@@ -1,9 +1,9 @@
 # Map-Project
 
 ## Documentation 
-This project takes a custom osm data file, extracts `ways` and `nodes` elements into sql database tables.  
+* This project takes a custom osm data file, extracts `ways` and `nodes` elements into sql database tables.  
 [osm_wrangling.ipynb](osm_wrangling.ipynb) is the main document.  
-Unzip `sample.osm.gz` to test code.  
+* Unzip `sample.osm.gz` to test code.  
 
 
 ## Working Notes 
