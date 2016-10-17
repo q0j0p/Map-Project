@@ -8,10 +8,10 @@ Unzip `sample.osm.gz` to test code.
 
 ## Working Notes 
 ### Todo: 
+* Iterations to improve code. 
+* Add more data analysis functionality.  
 
-  
-
-Currently using: 
+### Currently using: 
 * spyder3 IDE 
 * git version control, push updates to repository  
 
