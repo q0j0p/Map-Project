@@ -7,11 +7,7 @@ This project takes a custom osm data file, extracts `ways` and `nodes` elements 
 ## Working Notes 
 ### Todo: 
 
-
-1. Convert 'Project Notes' into project oriented structure.  
-1. Learn how to organize code within files. 
-1. Use docstrings for documentation 
-1. Make (large) data files available in github.  
+  
 
 Currently using: 
 * spyder3 IDE 
