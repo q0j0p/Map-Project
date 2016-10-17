@@ -19,8 +19,6 @@ Created on Tue Oct 11 13:13:22 2016
 """
 
 
-
-
 ''' The libraries and packages that this project uses.  
 Todo: Learn to organize dependencies later 
 '''
@@ -65,7 +63,12 @@ def get_element(osm_file, tags=('node', 'way', 'relation')):
              yield elem  #`yield` returns a generator (an iterable object, iterating one by one)
              root.clear()
 
+
 def create_sampledata(osm_file, sample_file):
+    ''' 
+    # Execute to create sample file 
+    create_sampledata(OSMFILE, SAMPLEFILE)
+    '''
     with open(sample_file, 'wb') as output:
          output.write('<?xml version="1.0" encoding="UTF-8"?>\n')
          output.write('<osm>\n  ')
@@ -84,15 +87,11 @@ def create_sampledata(osm_file, sample_file):
 
          
          
-''' 
-# Execute to create sample file 
-create_sampledata(OSMFILE, SAMPLEFILE)
-'''
+
 
 '''
 Data Auditing 
 '''
-
 
 def count_tags(filename):
     '''
@@ -120,7 +119,6 @@ Execute to get all tags in file:
 
 
 '''
-# Data Audit 
 # These are functions used in verifying osm element data 
 '''
 # view the tags
@@ -190,7 +188,7 @@ Using geolocator module to reverse-lookup coordinates:
 
 >>> node_nd_refs = get_allof_childattrib('node', 'nd', 'ref')
 '''
-   
+
 
 
 ''' 
@@ -198,7 +196,7 @@ Audit functions to check membership of tags in elements
 ''' 
  
 # how many of set one is /isn't in set2?
-def what_in_what(set1, set2):
+def a_in_b(set1, set2):
     is_in = 0 
     not_in = 0 
     for id in set1: 
@@ -228,8 +226,9 @@ def listof_notin(set1, set2):
     
     
 '''
-# Execute to audit tags : 
-    
+# Execute to audit tags: 
+
+# e.g. how many of the member id's in 'relation's are in 'way's? 
 >>> what_in_what(relation_member_refs, way_ids)
 
 >>> what_in_what(relation_member_refs, node_ids)
@@ -265,37 +264,4 @@ len(users)
 
 
 
-''' 
-Execute to scrape all conventionally used map features in OSM projects
--from wiki 
-# from bs4 import BeautifulSoup
-# import urllib 
-
-# access the site and obtain BS object 
->>> wikisite = 'http://wiki.openstreetmap.org/wiki/Map_Features'
->>> r = urllib.urlopen(wikisite).read() 
->>> soup = BeautifulSoup(r, 'html.parser')
-
-# Find all the wiki tables.  
->>> tables = soup.find_all("table", class_='wikitable')
-
->>> len(tables)
-# Map features is listed in 29 tables 
-
-# list of key values that are physical map features 
->>> keys = [table.a['href'] for table in tables]
-
-rows = soup.find_all('tr')
-features = []
-for n, a1 in enumerate(rows): 
-    a2 = a1.find_all('td')
-    try:
-        if a2[0].a['href'] in keys and a2[1].a['title']: 
-                values = a2[1].a['title'].split(':')[1]
-                if "(page does not exist)" not in values: 
-                    features.append(values)                
-    except: 
-        pass
- 
-'''
 

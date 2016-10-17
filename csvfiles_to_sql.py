@@ -9,7 +9,7 @@ Created on Sun Oct 16 20:03:47 2016
 # Create sql table with schema provided. 
 
 import sqlite3 
-DBFILE = "SofHawaii"
+DBFILE = "SofHawaii.db"
 
 #with sqlite3.connect(DBFILE) as db: 
 #    cursor = db.cursor()
@@ -107,15 +107,16 @@ def csv_to_tuple(csvfile):
         csvReader = UnicodeReader(csvf)
         csvd = [tuple(a1) for a1 in csvReader]
         header = csvd[0]
-        print 'csv file header: ', header
+#        print 'csv file header: ', header
         return csvd
 
 # takes list of tuples (tlist, extracted from .csv) and inserts into sql table in database
 def tuples_to_table(tlist, table, db): 
     db1 = sqlite3.connect(db)
     cursor1 = db1.cursor()    
-    vname_ = tuple(a.encode('utf-8') for a in tlist[0]) # sql variable name must be a tuple in UTF_8 encoding
-    print 'table columns: ', vname_
+    vname_ = tuple(a.encode('utf-8') for a in tlist[0]) 
+    # sql variable name must be a tuple in UTF_8 encoding
+#    print 'table columns: ', vname_
     cursor1.executemany(
     '''INSERT INTO {}{} VALUES ({}?);'''.format(table, 
                                                  vname_, 
@@ -138,14 +139,16 @@ def csv_to_table(csvfile, table, dbfile):
 
 
 # Next iteration: ways_tags to database 
-# Create function that creates database and necessary tables, takes data from .csv file to table  
+# Create function that creates database and necessary tables, 
+# takes data from .csv file to table  
 
 def csv_to_sql(csvfile, table, database, sqlquery): 
     db = sqlite3.connect(database)
     cursor = db.cursor()
     
     # See if table exists: if true, drop and create new
-    cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='{}';".format(table))  
+    cursor.execute(
+       "SELECT name FROM sqlite_master WHERE type='table' AND name='{}';".format(table))  
     rows = cursor.fetchall() 
     if rows: 
         cursor.execute("DROP TABLE {}".format(table))
@@ -156,7 +159,7 @@ def csv_to_sql(csvfile, table, database, sqlquery):
 
     # Transfer data from .csv to table
     csv_to_table(csvfile, table, database)
-    print 'final call:', cursor.fetchall()
+#    print 'final call:', cursor.fetchall()
     db.close()
 
 #csv_to_table(CSVFILE, TABLE, DBFILE) 

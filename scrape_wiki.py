@@ -9,35 +9,37 @@ Execute script to scrape all conventionally used map features in OSM projects, f
 wikisite = 'http://wiki.openstreetmap.org/wiki/Map_Features'
 """
 
-from bs4 import BeautifulSoup
-import urllib 
-
-# access the site and obtain BS object 
-wikisite = 'http://wiki.openstreetmap.org/wiki/Map_Features'
-r = urllib.urlopen(wikisite).read() 
-soup = BeautifulSoup(r, 'html.parser')
-
-# Find all the wiki tables.  
-tables = soup.find_all("table", class_='wikitable')
-
-len(tables)
-# Map features is listed in 29 tables 
-
-# list of key values that are physical map features 
-keys = [table.a['href'] for table in tables]
-rows = soup.find_all('tr')
-
-features = []
-
-for n, a1 in enumerate(rows): 
-    a2 = a1.find_all('td')
-    try:
-        if a2[0].a['href'] in keys and a2[1].a['title']: 
-                values = a2[1].a['title'].split(':')[1]
-                if "(page does not exist)" not in values: 
-                    features.append(values)                
-    except: 
-        pass
+#==============================================================================
+# from bs4 import BeautifulSoup
+# import urllib 
+# 
+# # access the site and obtain BS object 
+# wikisite = 'http://wiki.openstreetmap.org/wiki/Map_Features'
+# r = urllib.urlopen(wikisite).read() 
+# soup = BeautifulSoup(r, 'html.parser')
+# 
+# # Find all the wiki tables.  
+# tables = soup.find_all("table", class_='wikitable')
+# 
+# len(tables)
+# # Map features is listed in 29 tables 
+# 
+# # list of key values that are physical map features 
+# keys = [table.a['href'] for table in tables]
+# rows = soup.find_all('tr')
+# 
+# features = []
+# 
+# for n, a1 in enumerate(rows): 
+#     a2 = a1.find_all('td')
+#     try:
+#         if a2[0].a['href'] in keys and a2[1].a['title']: 
+#                 values = a2[1].a['title'].split(':')[1]
+#                 if "(page does not exist)" not in values: 
+#                     features.append(values)                
+#     except: 
+#         pass
+#==============================================================================
  
 
         
@@ -71,6 +73,7 @@ def value_type(element, tally):
     return tally
 
 def process_attrib(filename, tally, attrib):
+    tally1 = defaultdict(set)
     for _, element in ET.iterparse(filename):
         if element.tag == "tag": 
             if attrib == 'k':
@@ -80,8 +83,8 @@ def process_attrib(filename, tally, attrib):
                 
     for a in tally: 
         if tally[a] != 0: 
-            tally[a] = tally[a]
-    return tally
+            tally1[a] = tally[a]
+    return tally1
 
-
-    
+if __name__ == '__main__':
+    process_attrib(OSMFILE, feature_tally, 'v')

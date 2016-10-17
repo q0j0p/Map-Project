@@ -14,7 +14,7 @@ def do_sql(database, query):
 
     c.execute(query) 
     rows = c.fetchall() 
-    for r in rows: 
-        print r
+#    for r in rows: 
+#        print r
     db.close()
     return rows

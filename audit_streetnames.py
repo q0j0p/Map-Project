@@ -98,13 +98,15 @@ def update_name(name, mapping):
 #    print "mapping:",mapping
     return name
 
-st_types = audit(OSMFILE)
-# pprint.pprint(dict(st_types))
-
-for st_type, ways in st_types.iteritems():
-    for name in ways:
-        better_name = update_name(name, mapping)
-        print name, "=>", better_name
-print 'corrected name count is:', len(st_types.items())
-
+if __name__ == "__main__": 
+    print "hi"
+    st_types = audit(OSMFILE)
+    # pprint.pprint(dict(st_types))
+    
+    for st_type, ways in st_types.iteritems():
+        for name in ways:
+            better_name = update_name(name, mapping)
+            print name, "=>", better_name
+    print 'corrected name count is:', len(st_types.items())
+    
         
