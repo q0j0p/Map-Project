@@ -99,7 +99,6 @@ def update_name(name, mapping):
     return name
 
 if __name__ == "__main__": 
-    print "hi"
     st_types = audit(OSMFILE)
     # pprint.pprint(dict(st_types))
     
